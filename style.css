@@ -1,6 +1,10 @@
 body {
     font-family: "Arial", sans-serif;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background: url('https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
 }
+
 
 section {
     text-align: center;
