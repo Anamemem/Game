@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calc.css">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="calculator">
+            <div>
+                <div id="display">
+                    <div id="values"></div>
+                    <div id="answer"></div>
+                </div>
+            </div>
+            <div class="buttons">
+                <div>
+                    <div class="buttons-list">
+                        <button onclick="getNumber(1)">1</button>
+                        <button onclick="getNumber(2)">2</button>
+                        <button onclick="getNumber(3)">3</button>
+                        <button onclick="getNumber(4)">4</button>
+                    </div>
+                    <div class="buttons-list">
+                        <button onclick="getNumber(5)">5</button>
+                        <button onclick="getNumber(6)">6</button>
+                        <button onclick="getNumber(7)">7</button>
+                        <button onclick="getNumber(8)">8</button>
+                    </div>
+                    <div class="buttons-list">
+                        <button onclick="getNumber(9)">9</button>
+                        <button onclick="getNumber(0)">0</button>
+                        <button onclick="addDot()">.</button>
+                        <button onclick="deleteNumber()">Del</button>
+                    </div>
+                    <div class="buttons-list">
+                        
+                        <button onclick="equate()">=</button>
+                        <button onclick="clearAll()">AC</button>
+                    </div>
+                </div>
+                <div class="symbols">
+                    <div>
+                        <button onclick="getNumber('+')">+</button>
+                    </div>
+                    <div>
+                        <button onclick="getNumber('-')">-</button>
+                    </div>
+                    <div>
+                        <button onclick="getNumber('*')">x</button>
+                    </div>
+                    <div>
+                        <button onclick="getNumber('/')">/</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="calc.js"></script>
+</body>
+</html>
