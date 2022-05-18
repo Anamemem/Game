@@ -1,94 +1,187 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-<body>
-    <section>
-        <div class="calculator">
-            <div>
-                <div id="display">
-                    <div id="values"></div>
-                    <div id="answer"></div>
-                </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title> Clock</title>
+  </head>
+  <body>
+    <section class="clock container">
+      <div class="clock__container grid">
+        <div class="clock__content grid">
+          <div class="clock__circle">
+            <span class="clock__twelve"></span>
+            <span class="clock__three"></span>
+            <span class="clock__six"></span>
+            <span class="clock__nine"></span>
+
+            <div class="clock__rounder"></div>
+            <div class="clock__hour" id="clock-hour"></div>
+            <div class="clock__minutes" id="clock-minutes"></div>
+            <div class="clock__seconds" id="clock-seconds"></div>
+
+            <!-- Dark/light Theme Button -->
+            <div class="clock__theme">
+              <i class="bx bxs-moon" id="theme-button"></i>
             </div>
-            <div class="buttons">
-                <div>
-                    <div class="buttons-list">
-                        <button onclick="getNumber(1)">1</button>
-                        <button onclick="getNumber(2)">2</button>
-                        <button onclick="getNumber(3)">3</button>
-                        <button onclick="getNumber(4)">4</button>
-                    </div>
-                    <div class="buttons-list">
-                        <button onclick="getNumber(5)">5</button>
-                        <button onclick="getNumber(6)">6</button>
-                        <button onclick="getNumber(7)">7</button>
-                        <button onclick="getNumber(8)">8</button>
-                    </div>
-                    <div class="buttons-list">
-                        <button onclick="getNumber(9)">9</button>
-                        <button onclick="getNumber(0)">0</button>
-                        <button onclick="addDot()">.</button>
-                        <button onclick="deleteNumber()">Del</button>
-                    </div>
-                    <div class="buttons-list">
-                        
-                        <button onclick="equate()">=</button>
-                        <button onclick="clearAll()">AC</button>
-                    </div>
-                </div>
-                <div class="symbols">
-                    <div>
-                        <button onclick="getNumber('+')">+</button>
-                    </div>
-                    <div>
-                        <button onclick="getNumber('-')">-</button>
-                    </div>
-                    <div>
-                        <button onclick="getNumber('*')">x</button>
-                    </div>
-                    <div>
-                        <button onclick="getNumber('/')">/</button>
-                    </div>
-                </div>
+          </div>
+
+          <div>
+            <div class="clock__text">
+              <div class="clock__text-hour" id="text-hour"></div>
+              <div class="clock__text-minutes" id="text-minutes"></div>
+              <div class="clock__text-ampm" id="text-ampm"></div>
             </div>
+
+            <!-- Date(Day-Month-Year) -->
+            <div class="clock__date">
+              <span id="date-day"></span>
+              <span id="date-month"></span>
+              <span id="date-year"></span>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-
     <script>
-        const getNumber = (num) => {
-    let values = document.getElementById("values");
-    values.innerHTML += num
+        const hour = document.querySelector("#clock-hour"),
+  minutes = document.querySelector("#clock-minutes"),
+  seconds = document.querySelector("#clock-seconds");
+
+const clock = () => {
+  let date = new Date();
+
+  let hh = date.getHours() * 30,
+    mm = date.getMinutes() * 6,
+    ss = date.getSeconds() * 6;
+
+  // Rotation of the elements(hr,mins and secs)
+  hour.style.transform = `rotateZ(${hh + mm / 12}deg)`;
+  minutes.style.transform = `rotateZ(${mm}deg)`;
+  seconds.style.transform = `rotateZ(${ss}deg)`;
+};
+setInterval(clock, 1000); // 1000 = 1s
+
+/*==================== CLOCK & DATE TEXT ====================*/
+const textHour = document.querySelector("#text-hour"),
+  textMinutes = document.querySelector("#text-minutes"),
+  textAmPm = document.querySelector("#text-ampm"),
+  //   dateWeek = document.querySelector('date-day-week'),
+  dateDay = document.querySelector("#date-day"),
+  dateMonth = document.querySelector("#date-month"),
+  dateYear = document.querySelector("#date-year");
+
+const clockText = () => {
+  let date = new Date();
+
+  let hh = date.getHours(),
+    ampm,
+    mm = date.getMinutes(),
+    day = date.getDate(),
+    // dayweek = date.getDay(),
+    month = date.getMonth(),
+    year = date.getFullYear();
+
+  // We change the hours from 24 to 12 hours and establish whether it is AM or PM
+  if (hh >= 12) {
+    hh = hh - 12;
+    ampm = "PM";
+  } else {
+    ampm = "AM";
+  }
+
+  // We detect when it's 0 AM and transform to 12 AM
+  if (hh == 0) {
+    hh = 12;
+  }
+
+  // Show a zero before hours
+  if (hh < 10) {
+    hh = `0${hh}`;
+  }
+
+  // Show time
+  textHour.innerHTML = `${hh}:`;
+
+  // Show a zero before the minutes
+  if (mm < 10) {
+    mm = `0${mm}`;
+  }
+
+  // Show minutes
+  textMinutes.innerHTML = mm;
+
+  // Show am or pm
+  textAmPm.innerHTML = ampm;
+
+  // To show the name of the day of the week; that is
+  // let week = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
+
+  // We get the months of the year and show it
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // To show the day, the month and the year
+  dateDay.innerHTML = day;
+  // dateWeek.innerHTML = `${week[dayweek]}`
+  dateMonth.innerHTML = `${months[month]},`;
+  dateYear.innerHTML = year;
+};
+setInterval(clockText, 1000); // 1000 = 1s
+
+/*==================== DARK/LIGHT THEME ====================*/
+const themeButton = document.querySelector("#theme-button");
+const darkTheme = "dark-theme";
+const iconTheme = "bxs-sun";
+
+// Previously selected topic (if user selected)
+const selectedTheme = localStorage.getItem("selected-theme");
+const selectedIcon = localStorage.getItem("selected-icon");
+
+// We obtain the current theme that the interface has by validating the dark-theme class
+const getCurrentTheme = () =>
+  document.body.classList.contains(darkTheme) ? "dark" : "light";
+const getCurrentIcon = () =>
+  themeButton.classList.contains(iconTheme) ? "bxs-moon" : "bxs-sun";
+
+// We validate if the user previously chose a topic
+if (selectedTheme) {
+  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
+  document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
+    darkTheme
+  );
+  themeButton.classList[selectedIcon === "bxs-moon" ? "add" : "remove"](
+    iconTheme
+  );
 }
 
-const equate = () =>{
-    let values = document.getElementById("values");
-    let answer = document.getElementById("answer");
-
-    value = values.innerHTML;
-    // if(value[value.length - 1] == "+" || "-" || "/" || "*"){
-    //     value = value.substring(0, value.length - 1);
-    // }
-    answer.innerHTML = eval(value);
-}
-
-const clearAll = () =>{
-    let values = document.getElementById("values");
-    let answer = document.getElementById("answer");
-
-    values.innerHTML = "";
-    answer.innerHTML = "0";
-}
-
-const deleteNumber = () =>{
-    let values = document.getElementById("values");
-
-    values.innerHTML = values.innerHTML.substring(0, values.innerHTML.length - 1);
-}
+// Activate / deactivate the theme manually with the button
+themeButton.addEventListener("click", () => {
+  // Add or remove the dark / icon theme
+  document.body.classList.toggle(darkTheme);
+  themeButton.classList.toggle(iconTheme);
+  // We save the theme and the current icon that the user chose
+  localStorage.setItem("selected-theme", getCurrentTheme());
+  localStorage.setItem("selected-icon", getCurrentIcon());
+});
     </script>
-</body>
+  </body>
 </html>
